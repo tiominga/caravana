@@ -1,0 +1,18 @@
+# Ignorar ambientes virtuais
+venv/
+env/
+bin/
+lib/
+lib64/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar IDEs
+.vscode/
+.idea/
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db

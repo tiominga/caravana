@@ -1,11 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Formulário de cadastro de viagem</h1>
-</body>
-</html>
+{% extends "main.html" %}
+
+{% block 'body' %}
+<div class="d-flex flex-column justify-content-center align-items-center min-vh-50" style="margin-top:5%;">
+    <h1 class="mb-5 text-center fw-bold" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        🚍 Cadastrar Nova Viagem 🚍
+    </h1>
+
+    <form method="POST" action="{% url 'viagem:save' %}" class="d-flex flex-column gap-4" style="width: 100%; max-width: 600px;">
+        {% csrf_token %}
+
+        <!-- Campo Nome da Viagem -->
+        <div class="mb-3">
+            <label for="id_nome" class="form-label fw-semibold">Nome da Viagem</label>
+            <input type="text" name="nome" class="form-control" id="id_nome" value="{{ form.nome.value }}">
+        </div>
+
+        <!-- Campo Data -->
+        <div class="mb-3">
+            <label for="id_data" class="form-label fw-semibold">Data da Viagem</label>
+            <input type="date" name="data" class="form-control" id="id_data" value="{{ form.data.value }}">
+        </div>
+
+        <!-- Campo Hora de Partida -->
+        <div class="mb-3">
+            <label for="id_hora_partida" class="form-label fw-semibold">Hora de Partida</label>
+            <input type="time" name="hora_partida" class="form-control" id="id_hora_partida" value="{{ form.hora_partida.value }}">
+        </div>
+
+        <!-- Campo Hora de Chegada -->
+        <div class="mb-3">
+            <label for="id_hora_chegada" class="form-label fw-semibold">Hora de Chegada</label>
+            <input type="time" name="hora_chegada" class="form-control" id="id_hora_chegada" value="{{ form.hora_chegada.value }}">
+        </div>
+
+     
+        <!-- Campo Origem -->
+        <div class="mb-3">
+            <label for="id_origem" class="form-label fw-semibold">Origem</label>
+            <input type="text" name="origem" class="form-control" id="id_origem" value="{{ form.origem.value }}">
+        </div>
+
+        <!-- Campo Destino -->
+        <div class="mb-3">
+            <label for="id_destino" class="form-label fw-semibold">Destino</label>
+            <input type="text" name="destino" class="form-control" id="id_destino" value="{{ form.destino.value }}">
+        </div>
+
+           <!-- Campo Local de Partida -->
+           <div class="mb-3">
+            <label for="id_local_partida" class="form-label fw-semibold">Local de Partida (Ex: Rodoviária, Mercadão, Peixaria etc)</label>
+            <input type="text" name="local_partida" class="form-control" id="id_local_partida" value="{{ form.local_partida.value }}">
+        </div>
+
+        <!-- Campo Preço -->
+        <div class="mb-3">
+            <label for="id_preco" class="form-label fw-semibold">Preço</label>
+            <input type="number" name="preco" class="form-control" id="id_preco" step="0.01" value="{{ form.preco.value }}">
+        </div>
+
+        <!-- Campo Descrição -->
+        <div class="mb-3">
+            <label for="id_descricao" class="form-label fw-semibold">Descrição</label>
+            <textarea name="descricao" class="form-control" id="id_descricao">{{ form.descricao.value }}</textarea>
+        </div>
+
+        <!-- Campo Observações -->
+        <div class="mb-3">
+            <label for="id_obs" class="form-label fw-semibold">Observações</label>
+            <textarea name="obs" class="form-control" id="id_obs">{{ form.obs.value }}</textarea>
+        </div>
+
+        <!-- Campo Código do Usuário -->
+        <div class="mb-3" style="display: none;">
+            <label for="id_cod_usuario" class="form-label fw-semibold">Código do Usuário</label>
+            <input type="number" name="cod_usuario" class="form-control" id="id_cod_usuario" value="{{ form.cod_usuario.value }}">
+        </div>
+
+        <!-- Campo Acentos Andar 1 Direito -->
+        <div class="mb-3">
+            <label for="id_acentos_andar1d" class="form-label fw-semibold">Nº de Acentos  (Corredor da Direita - Porta de entrada)</label>
+            <input type="number" name="acentos_andar1d" class="form-control" id="id_acentos_andar1d" value="{{ form.acentos_andar1d.value }}">
+        </div>
+
+        <!-- Campo Acentos Andar 1 Esquerdo -->
+        <div class="mb-3">
+            <label for="id_acentos_andar1e" class="form-label fw-semibold">Nº de Acentos (Corredor da Esquerda - Atrás do Motorista)</label>
+            <input type="number" name="acentos_andar1e" class="form-control" id="id_acentos_andar1e" value="{{ form.acentos_andar1e.value }}">
+        </div>
+
+        <!-- Campo Acentos Andar 2 Direito -->
+        <div class="mb-3">
+            <label for="id_acentos_andar2d" class="form-label fw-semibold">Acentos 2º Andar (Direita - Somente ônibus 2 andares)</label>
+            <input type="number" name="acentos_andar2d" class="form-control" id="id_acentos_andar2d" value="{{ form.acentos_andar2d.value|default:0 }}">
+        </div>
+
+        <!-- Campo Acentos Andar 2 Esquerdo -->
+        <div class="mb-3">
+            <label for="id_acentos_andar2e" class="form-label fw-semibold">Acentos 2º Andar (Esquerda - Somente ônibus 2 andares)</label>
+            <input type="number" name="acentos_andar2e" class="form-control" id="id_acentos_andar2e" value="{{ form.acentos_andar2e.value|default:0 }}">
+        </div>
+
+        <!-- Botão de Envio -->
+        <button type="submit" class="btn btn-primary btn-lg shadow rounded-4 p-3">
+            <i class="bi bi-check-circle fs-2"></i>
+            <span class="fs-5 fw-semibold">Cadastrar Viagem</span>
+        </button>
+    </form>
+</div>
+{% endblock %}

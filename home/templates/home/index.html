@@ -1,11 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oi</title>
-</head>
-<body>
-    <h1>oi</h1>
-</body>
-</html>
+{%extends "main.html"%}
+
+{% block 'body'%}
+<div class="d-flex flex-column justify-content-center align-items-center min-vh-50" style="margin-top:5%;">
+    <h1 class="mb-5 text-center fw-bold" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        🌿 Bem-vindo 🌿
+    </h1>
+
+    <div class="d-flex flex-column gap-4" style="width: 100%; max-width: 500px;">
+        <!-- Botão Passageiro -->
+        <a href="" class="btn btn-success btn-lg d-flex align-items-center justify-content-center gap-2 shadow rounded-4 p-3">
+            <i class="bi bi-bus-front-fill fs-2"></i>
+            <span class="fs-5 fw-semibold">Sou um passageiro, quero viajar</span>
+        </a>
+
+        <!-- Botão Criar Viagem -->
+        <a href="{% url 'home:organizador'%}?organizador=1" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2 shadow rounded-4 p-3">
+            <i class="bi bi-geo-alt-fill fs-2"></i>
+            <span class="fs-5 fw-semibold">Quero organizar uma viagem</span>
+        </a>
+    </div>
+</div>
+
+{% endblock %}    

@@ -17,7 +17,10 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+app_name = 'home'
+
 urlpatterns = [
-       path('',views.home_index),     
-       path('dashboard/',views.home_dashboard),   
+       path('',views.home_index),           
+       path('organizador/',views.home_organizador,name='organizador'), 
+       path('dashboard/',views.home_dashboard,name='dashboard'),        
 ]

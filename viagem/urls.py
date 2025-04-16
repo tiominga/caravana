@@ -17,10 +17,12 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+app_name = 'viagem'
+
 urlpatterns = [
-       path('',views.viagem_index),  
-       path('form/',views.viagem_form),
-       path('add/',views.viagem_add),
-       path('find/',views.viagem_find),
+       path('',views.viagem_index,name='index'),  
+       path('form/',views.viagem_form,name='form'),
+       path('save/',views.viagem_save,name='save'),
+       path('find/',views.viagem_find,name='find'),
 
 ]
