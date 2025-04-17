@@ -10,7 +10,7 @@ class Viagem(models.Model):
     data = models.DateField()
     hora_partida = models.TimeField()
     hora_chegada = models.TimeField()
-    local_partida = models.CharField(max_length=200,db_default='')
+    local_partida = models.CharField(max_length=200,default='')
     origem = models.CharField(max_length=100)
     destino = models.CharField(max_length=100)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
