@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Viagem
-
+from caravana.utils.sql_to_table import SqlToTable
 
 # Create your views here.
 def viagem_index(request):
@@ -9,8 +9,18 @@ def viagem_index(request):
 def viagem_form(request):
     return render(request, 'viagem_form.html')
 
-def viagem_lista(request):
-    return render(request, 'viagem_find.html')
+def viagem_find(request):
+    id_usuario = request.user.id
+    query = "select id as Cod,nome as Viagem,date_format(data,'%%d/%%m/%%Y') as Data,hora_partida as Hora,Origem,Destino from viagem_viagem where cod_usuario_id = %s order by data"
+    params = [id_usuario]
+
+    obj_sql_to_table = SqlToTable()
+    obj_sql_to_table.set_query(query)
+    obj_sql_to_table.set_params(params)
+    obj_sql_to_table.set_edit_rout('viagem:form')
+    obj_sql_to_table.set_delete_rout('viagem:delete')
+    table = obj_sql_to_table.query_to_html()
+    return render(request, 'viagem_find.html',{'table':table})
 
 from django.shortcuts import render, redirect
 from .models import Viagem
@@ -57,8 +67,7 @@ def viagem_save(request):
 
         return redirect('viagem:find')  # redireciona pra alguma lista de viagens, por exemplo
 
-    
 
 
-def viagem_find(request):
-    return render(request, 'viagem_find.html')
+
+

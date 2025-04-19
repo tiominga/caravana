@@ -29,24 +29,24 @@ class Viagem(models.Model):
 
        if not self.data:
            raise ValidationError('A data da viagem precisa ser preenchida')
-       
+
        if not self.hora_partida:
            raise ValidationError('A hora de partida precisa ser preenchida')
-       
+
        if not self.hora_chegada:
            raise ValidationError('A hora de chegada precisa ser preenchida')
-       
+
        if self.origem == '':
            raise ValidationError('A origem precisa ser preenchida')
-       
+
        if self.destino == '':
-           raise ValidationError('O destino precisa ser preenchido') 
-       
+           raise ValidationError('O destino precisa ser preenchido')
+
        if self.local_partida == '':
               raise ValidationError('O local de partida precisa ser preenchido')
 
        if self.preco is None or self.preco < 0:
            raise ValidationError('O preço da viagem precisa ser preenchido e maior ou igual a zero')
-       
+
 
 
