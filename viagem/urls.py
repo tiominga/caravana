@@ -20,8 +20,10 @@ from . import views
 app_name = 'viagem'
 
 urlpatterns = [
-       path('',views.viagem_index,name='index'),  
+       path('',views.viagem_index,name='index'),
        path('form/',views.viagem_form,name='form'),
+       path('form/<int:id>/', views.viagem_form, name='form_edit'),
+       path('delete/<int:id>/', views.viagem_delete, name='delete'),
        path('save/',views.viagem_save,name='save'),
        path('find/',views.viagem_find,name='find'),
 
