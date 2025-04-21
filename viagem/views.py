@@ -13,12 +13,17 @@ def viagem_form(request, id=None):
     return render(request, 'viagem_form.html', {'obj_viagem': obj_viagem})
 
 
-def viagem_delete(request):
-    return render(request, 'viagem_delete.html')
+def viagem_delete(request,id=None):
+    if id:
+        obj_viagem = get_object_or_404(Viagem, pk=id)
+        obj_viagem.status = 0
+        obj_viagem.save()
+
+    return redirect('viagem:find')
 
 def viagem_find(request):
     id_usuario = request.user.id
-    query = "select id,nome as Viagem,date_format(data,'%%d/%%m/%%Y') as Data,hora_partida as Hora,Origem,Destino from viagem_viagem where cod_usuario_id = %s order by data"
+    query = "select id,nome as Viagem,date_format(data,'%%d/%%m/%%Y') as Data,hora_partida as Hora,Origem,Destino from viagem_viagem where status > 0 and cod_usuario_id = %s order by data"
     params = [id_usuario]
 
     obj_sql_to_table = SqlToTable()

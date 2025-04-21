@@ -30,6 +30,7 @@ class SqlToTable:
 
     def get_buttons(self, id_value):
         buttons = ""
+
         if self.edit_rout is not None:
             edit_url = reverse(self.edit_rout, kwargs={'id': id_value})
             buttons += f'<a href="{edit_url}" class="btn btn-primary btn-sm mr-2" style="padding: 0.2rem 0.4rem;">Alterar</a>'

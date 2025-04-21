@@ -22,6 +22,7 @@ class Viagem(models.Model):
     acentos_andar2d = models.IntegerField(db_default=1)
     acentos_andar2e = models.IntegerField(db_default=1)
     date_add = models.DateTimeField(auto_now_add=True)
+    status = models.IntegerField(db_default=1)
 
     def clean(self):
        if self.nome =='':
