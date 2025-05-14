@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
-    'django_extensions',
     'home',
     'viagem'
 ]
@@ -121,7 +120,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'caravana',
         'USER': 'caravana',
-        'PASSWORD': '@CaraVana84562',
+        'PASSWORD': ' ',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
