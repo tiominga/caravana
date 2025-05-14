@@ -35,7 +35,7 @@ SECRET_KEY = 'django-insecure-i(s&mki0-g+af9=qgm(wy(!uy9m4u40$6r=)6x+28yew273*=d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTHENTICATION_BACKENDS = [
 
@@ -69,7 +69,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'home',
-    'viagem'
+    'viagem',
+    'passageiro'
+
 ]
 
 MIDDLEWARE = [
@@ -176,6 +178,5 @@ MEDIA_URL = "/media/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #SSL
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
+#SECURE_SSL_REDIRECT = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
