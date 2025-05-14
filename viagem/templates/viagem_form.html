@@ -1,5 +1,4 @@
 {% extends "main.html" %}
-
 {% block 'body' %}
 <p>Valor do Preço (Teste): {{ obj_viagem.preco }}</p>
 <div class="d-flex flex-column justify-content-center align-items-center min-vh-50" style="margin-top:5%;">
@@ -11,7 +10,7 @@
         {% csrf_token %}
 
         <!-- Campo id -->
-        <div class="mb-3">
+        <div class="mb-3" style="display: none;">
             <label for="id" class="form-label fw-semibold">id</label>
             <input type="text" name="id" class="form-control" id="id_id" value="{{ obj_viagem.id }}">
         </div>
@@ -99,7 +98,7 @@
         <!-- Campo Acentos Andar 2 Direito -->
         <div class="mb-3">
             <label for="id_acentos_andar2d" class="form-label fw-semibold">Acentos 2º Andar (Direita - Somente ônibus 2 andares)</label>
-            <input type="number" name="acentos_andar2d" class="form-control" id="id_acentos_andar2d" value="{{ obj_viagem.acentos_andar2d|default:0 }}">
+            <input type="number" name="acentos_andar2d" class="form-control" id="id_acentos_andar2d" value="{{ obj_viagem.acentos_andar2d|default:0}}">
         </div>
 
         <!-- Campo Acentos Andar 2 Esquerdo -->

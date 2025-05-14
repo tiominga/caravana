@@ -43,7 +43,7 @@ def viagem_save(request):
 
     if request.method == 'POST':
         id = request.POST.get('id')
-        if id:
+        if id.isdigit():
             obj_viagem = get_object_or_404(Viagem, pk=id)
         else:
             obj_viagem = Viagem()

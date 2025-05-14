@@ -14,13 +14,13 @@ class Viagem(models.Model):
     origem = models.CharField(max_length=100)
     destino = models.CharField(max_length=100)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
-    descricao = models.TextField(db_default='')
-    obs = models.TextField(db_default='')
+    descricao = models.TextField(db_default='',default='',blank=True,null=True)
+    obs = models.TextField(db_default='',default='',blank=True,null=True)
     cod_usuario = models.ForeignKey(User, on_delete=models.CASCADE,db_default=1)  # Relacionando com o modelo User
     acentos_andar1d = models.IntegerField(db_default=1)
     acentos_andar1e = models.IntegerField(db_default=1)
-    acentos_andar2d = models.IntegerField(db_default=1)
-    acentos_andar2e = models.IntegerField(db_default=1)
+    acentos_andar2d = models.IntegerField(db_default=0,default=0)
+    acentos_andar2e = models.IntegerField(db_default=0,default=0)
     date_add = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(db_default=1)
 
