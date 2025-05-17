@@ -19,19 +19,20 @@ def passageiro_save(request):
         status = request.POST.get('status')
         obs = request.POST.get('obs')
 
-        if id:
-            obj_passageiro =  get_object_or_404(passageiro,id=id)
+        if id and id.isdigit():
+            obj_passageiro =  get_object_or_404(passageiro,id=id)            
         else:
             obj_passageiro = passageiro()
+            obj_passageiro.cod_usuario_id = request.user.id
 
-        obj_passageiro.id = id
+        
         obj_passageiro.nome = nome
         obj_passageiro.rua = rua
         obj_passageiro.numero = numero
         obj_passageiro.cep = cep
         obj_passageiro.cidade = cidade
         obj_passageiro.estado = estado
-        obj_passageiro.status = status
+        obj_passageiro.status = 1
         obj_passageiro.obs = obs
 
         obj_passageiro.save()
@@ -40,6 +41,7 @@ def passageiro_save(request):
 
     except Exception as e:    
         logging.error(f"Error saving: {e}")
+        print(f"Error saving: {e}")
         return JsonResponse({'error': str(e)}, status=500)
 
     

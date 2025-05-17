@@ -25,10 +25,19 @@ def viagem_find(request):
     id_usuario = request.user.id
     query = "select id,nome as Viagem,date_format(data,'%%d/%%m/%%Y') as Data,hora_partida as Hora,Origem,Destino from viagem_viagem where status > 0 and cod_usuario_id = %s order by data"
     params = [id_usuario]
+    params = [5] 
 
-    obj_sql_to_table = SqlToTable()
-    obj_sql_to_table.set_query(query)
-    obj_sql_to_table.set_params(params)
+    print(params)
+
+   
+    try:
+        obj_sql_to_table = SqlToTable()
+        obj_sql_to_table.set_query(query)
+        obj_sql_to_table.set_params(params)
+    except Exception as e:
+        print('Erro ao criar objeto SqlToTable: ', e)
+
+
     obj_sql_to_table.set_edit_rout('viagem:form_edit')
     obj_sql_to_table.set_delete_rout('viagem:delete')
     table = obj_sql_to_table.query_to_html()
@@ -63,6 +72,7 @@ def viagem_save(request):
         obj_viagem.acentos_andar1e = request.POST.get('acentos_andar1e')
         obj_viagem.acentos_andar2d = request.POST.get('acentos_andar2d')
         obj_viagem.acentos_andar2e = request.POST.get('acentos_andar2e')
+        obj_viagem.cod_usuario_id = cod_usuario
 
         obj_viagem.save()
 

@@ -22,5 +22,6 @@ app_name = 'home'
 urlpatterns = [
        path('',views.home_index),           
        path('organizador/',views.home_organizador,name='organizador'), 
+       path('passageiro/',views.home_passageiro,name='passageiro'),
        path('dashboard/',views.home_dashboard,name='dashboard'),        
 ]

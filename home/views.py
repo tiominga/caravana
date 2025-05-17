@@ -10,6 +10,10 @@ def home_organizador(request):
     request.session['eh_organizador'] = 1   
     return redirect('/accounts/login/')
 
+def home_passageiro(request):
+    request.session['eh_organizador'] = 0
+    return redirect('/accounts/login/')
+
 def home_dashboard(request):
     if request.session.get('eh_organizador') == 1:
         return render(request, 'home/organizador.html')
