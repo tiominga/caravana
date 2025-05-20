@@ -19,9 +19,9 @@ def viagem_delete(request,id=None):
         obj_viagem.status = 0
         obj_viagem.save()
 
-    return redirect('viagem:find')
+    return redirect('viagem:list_all')
 
-def viagem_find(request):
+def viagem_list_all(request):
     id_usuario = request.user.id
     query = "select id,nome as Viagem,date_format(data,'%%d/%%m/%%Y') as Data,hora_partida as Hora,Origem,Destino from viagem_viagem where status > 0 and cod_usuario_id = %s order by data"
     params = [id_usuario]
@@ -41,7 +41,7 @@ def viagem_find(request):
     obj_sql_to_table.set_edit_rout('viagem:form_edit')
     obj_sql_to_table.set_delete_rout('viagem:delete')
     table = obj_sql_to_table.query_to_html()
-    return render(request, 'viagem_find.html',{'table':table})
+    return render(request, 'viagem_list_all.html',{'table':table})
 
 from django.shortcuts import render, redirect
 from .models import Viagem
@@ -76,9 +76,11 @@ def viagem_save(request):
 
         obj_viagem.save()
 
-        return redirect('viagem:find')  # redireciona pra alguma lista de viagens, por exemplo
+        return redirect('viagem:list_all')  # redireciona pra alguma lista de viagens, por exemplo
 
 
+def viagem_find(request):
+    return render(request, 'viagem_find.html')
 
 
 

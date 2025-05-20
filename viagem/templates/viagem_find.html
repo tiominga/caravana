@@ -1,7 +1,58 @@
-{% extends "main.html" %}
+{%extends "main.html"%}
+{% block 'title'%}Consulta de viagens{% endblock %}
+{% block 'head'%}
+    <style>
+            body {
+                background-color: #f2f2f2;
+            }
+            .form-container {
+                background-color: #fff;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+{% endblock %}
 
-{% block 'body' %}
+{% block 'nav'%}
+    {% include 'home/nav.html' %}
+{% endblock %}
+{% block 'body'%}
 
-    {{table|safe}}
+     <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 form-container">
+                    <h2 class="text-center mb-4">🚏 Consulte sua viagem: 🚏</h2>
+                     <h4 class="text-center mb-4">Informe ao menos uma das opções:</h4>
+                    <form id='form_consulta_viagem' method='POST' action='/modelo/save/'>
+                        <div class='row'>
+           
+    <div class='col-4'>
+        <label for='origem'>Origem</label>
+        <input type='text' class='form-control' id='origem' name='origem' value=''>
+    </div>
+    <div class='col-4'>
+        <label for='destino'>Destino</label>
+        <input type='text' class='form-control' id='destino' name='destino' value=''>
+    </div>
+    <div class='col-4'>
+        <label for='partida'>Partida</label>
+        <input type='date' class='form-control' id='partida' name='partida' value=''>
+    </div>
+
+    <div class='row mt-3'>
+    <div class='col-md-12 text-center'>
+        <button type='button' class='btn btn-primary'>🔍 Pesquisar</button>
+    </div>
+</div>
+    
+       
+</div>
+
+</form>
+</div>
+</div>
+</div>
 
 {% endblock %}

@@ -25,6 +25,7 @@ urlpatterns = [
        path('form/',views.viagem_form,name='form'),
        path('form/<int:id>/', views.viagem_form, name='form_edit'),
        path('save/',views.viagem_save,name='save'),
+       path('list_all/',views.viagem_list_all,name='list_all'),
        path('find/',views.viagem_find,name='find'),
 
 ]
