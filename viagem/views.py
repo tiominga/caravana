@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Viagem
 from caravana.utils.sql_to_table import SqlToTable
+from django.shortcuts import render, redirect
+from django.db import connection
+from django.http import HttpResponse
+
 # Create your views here.
 def viagem_index(request):
     return render(request, 'viagem_index.html')
@@ -25,11 +29,7 @@ def viagem_list_all(request):
     id_usuario = request.user.id
     query = "select id,nome as Viagem,date_format(data,'%%d/%%m/%%Y') as Data,hora_partida as Hora,Origem,Destino from viagem_viagem where status > 0 and cod_usuario_id = %s order by data"
     params = [id_usuario]
-    params = [5] 
-
-    print(params)
-
-   
+      
     try:
         obj_sql_to_table = SqlToTable()
         obj_sql_to_table.set_query(query)
@@ -43,8 +43,7 @@ def viagem_list_all(request):
     table = obj_sql_to_table.query_to_html()
     return render(request, 'viagem_list_all.html',{'table':table})
 
-from django.shortcuts import render, redirect
-from .models import Viagem
+
 
 def viagem_save(request):
 
@@ -82,5 +81,55 @@ def viagem_save(request):
 def viagem_find(request):
     return render(request, 'viagem_find.html')
 
+def viagem_origem_options(request):
+    query = """
+        SELECT MIN(id) AS id, origem
+        FROM viagem_viagem
+        WHERE DATA >= CURDATE()
+        AND (
+            (DATA = CURDATE() AND hora_partida >= CURTIME())
+            OR (DATA > CURDATE())
+        )
+        AND STATUS > 0
+        GROUP BY origem
+        ORDER BY origem;
+
+    """
+
+    with connection.cursor() as cursor:  
+        cursor.execute(query)
+        rows = cursor.fetchall()
+
+        result = ""
+        for row in rows:           
+            result += f"<option value='{row[0]}'>{row[1]}</option>"
+    
+    return HttpResponse(result)    
+
+
+def viagem_destino_options(request):
+    query = """
+        SELECT MIN(id) AS id, destino
+        FROM viagem_viagem
+        WHERE DATA >= CURDATE()
+        AND (
+            (DATA = CURDATE() AND hora_partida >= CURTIME())
+            OR (DATA > CURDATE())
+        )
+        AND STATUS > 0
+        GROUP BY destino
+        ORDER BY destino;
+
+    """
+
+    with connection.cursor() as cursor:  
+        cursor.execute(query)
+        rows = cursor.fetchall()
+
+        result = ""
+        for row in rows:           
+            result += f"<option value='{row[0]}'>{row[1]}</option>"
+    
+    return HttpResponse(result)    
 
 

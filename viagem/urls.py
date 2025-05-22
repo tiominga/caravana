@@ -27,5 +27,7 @@ urlpatterns = [
        path('save/',views.viagem_save,name='save'),
        path('list_all/',views.viagem_list_all,name='list_all'),
        path('find/',views.viagem_find,name='find'),
+       path('origem_options/',views.viagem_origem_options,name='origem_options'),
+       path('destino_options/',views.viagem_destino_options,name='destino_options'),
 
 ]
