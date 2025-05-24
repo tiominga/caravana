@@ -29,5 +29,6 @@ urlpatterns = [
        path('find/',views.viagem_find,name='find'),
        path('origem_options/',views.viagem_origem_options,name='origem_options'),
        path('destino_options/',views.viagem_destino_options,name='destino_options'),
+       path('query_find',views.viagem_sql_find,name='query_find')
 
 ]

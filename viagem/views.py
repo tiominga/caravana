@@ -4,6 +4,10 @@ from caravana.utils.sql_to_table import SqlToTable
 from django.shortcuts import render, redirect
 from django.db import connection
 from django.http import HttpResponse
+from django.http import JsonResponse
+
+
+
 
 # Create your views here.
 def viagem_index(request):
@@ -102,7 +106,7 @@ def viagem_origem_options(request):
 
         result = ""
         for row in rows:           
-            result += f"<option value='{row[0]}'>{row[1]}</option>"
+            result += f"<option value='{row[1]}'>{row[1]}</option>"
     
     return HttpResponse(result)    
 
@@ -128,8 +132,67 @@ def viagem_destino_options(request):
 
         result = ""
         for row in rows:           
-            result += f"<option value='{row[0]}'>{row[1]}</option>"
+            result += f"<option value='{row[1]}'>{row[1]}</option>"
     
-    return HttpResponse(result)    
+    return HttpResponse(result) 
+
+
+
+
+def viagem_sql_find(request):
+    origem = request.POST.get('origem')
+    destino = request.POST.get('destino')
+    data  = request.POST.get('partida')
+  
+
+    query = """
+            SELECT 
+            id,
+            Origem,
+            date_format(data,'%%d/%%m/%%Y') as Partida,
+            Destino,
+            preco as Preço,
+            descricao as Descrição,
+            Obs
+            FROM viagem_viagem
+            WHERE
+            (data >= curdate() OR
+            (data = curdate() and hora_partida > curtime())) AND
+            
+        """    
+
+    if not data:      
+        query +=""" origem = %s AND
+                    destino = %s
+                    order by data,hora_partida
+                """   
+        params = [origem,destino]
+        print(query+" "+origem+" "+destino)
+                 
+    else:
+
+        query +=""" origem = %s AND
+                    destino = %s AND
+                    data = %s
+                    order by data,hora_partida
+                """   
+        params = [origem,destino,data]
+        print(query+" "+origem+" "+destino+" "+data)
+       
+    
+    obj_sqltotable = SqlToTable()
+    obj_sqltotable.set_query(query)
+    obj_sqltotable.set_params(params)
+    obj_sqltotable.execute_query()
+
+    result = obj_sqltotable.query_to_html()
+
+    
+
+    return JsonResponse({"tabela": result})
+
+
+
+    
 
 

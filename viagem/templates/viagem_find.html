@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="{% static 'viagem/css/viagem_find.css' %}">
 
   <script>
-     
+      //Usado no viagem_find.js
       const URL_ORIGEM = "{% url 'viagem:origem_options' %}";
       const URL_DESTINO = "{% url 'viagem:destino_options' %}";
+      const URL_FIND = "{% url 'viagem:query_find' %}"
      
   </script>  
 
@@ -28,7 +29,7 @@
             <h2 class="text-center mb-4">🚏 Consulte a sua viagem: 🚏</h2>
             <h4 class="text-center mb-4">Informe ao menos uma das opções:</h4>
 
-    <form id="form_consulta_viagem" method="POST" action="/modelo/save/">
+    <form id="form_consulta_viagem" method="POST" action="#">
     {% csrf_token %}
         <div class="row">
             <div class="col-md-4">
@@ -53,15 +54,19 @@
 
         <div class="row mt-3">
             <div class="col-12 text-center">
-                <button type="button" class="btn btn-primary">🔍 Pesquisar</button>
+                <button type="button" onclick="viagem_find_submit()" class="btn btn-primary">🔍 Pesquisar</button>
             </div>
         </div>
 
     </form>
 
-
     </div>
     </div>
 </div>
+
+<div class="mt-4" id="resultado_consulta">
+    <!-- Os resultados serão carregados aqui -->
+</div>
+
 
 {% endblock %}

@@ -1,4 +1,4 @@
-    //constantes url_origem e destino no viagem_find.html para usar o namespace e evitar hardcoded
+//constantes url_origem e destino no viagem_find.html para usar o namespace e evitar hardcoded
 document.addEventListener("DOMContentLoaded", function() {
 
     fetch(URL_ORIGEM)  
@@ -13,4 +13,24 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             document.getElementById('destino').innerHTML = data;
     }); 
-});       
+}); 
+
+function viagem_find_submit(){
+
+   fetch(URL_FIND,{
+        method: "POST",
+        headers: {
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `origem=${origem.value}&destino=${destino.value}&partida=${partida.value}`
+    })
+    .then(r => r.json())
+    .then(d => resultado_consulta.innerHTML = d.tabela)
+    .catch(e => resultado_consulta.innerHTML = "<p>Erro.</p>");
+}
+
+
+
+
+
