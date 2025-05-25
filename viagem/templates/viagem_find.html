@@ -27,7 +27,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 form-container">
             <h2 class="text-center mb-4">🚏 Consulte a sua viagem: 🚏</h2>
-            <h4 class="text-center mb-4">Informe ao menos uma das opções:</h4>
+            <h4 class="text-center mb-4">Informe ao menos Origem e Destino:</h4>
 
     <form id="form_consulta_viagem" method="POST" action="#">
     {% csrf_token %}
@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<div class="mt-4" id="resultado_consulta">
+<div class="mt-4" id="resultado_consulta" style="width:80%;margin: 0 auto" >
     <!-- Os resultados serão carregados aqui -->
 </div>
 

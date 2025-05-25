@@ -17,13 +17,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function viagem_find_submit(){
 
+   const form = document.querySelector('#form_consulta_viagem');  
+
    fetch(URL_FIND,{
         method: "POST",
         headers: {
             "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: `origem=${origem.value}&destino=${destino.value}&partida=${partida.value}`
+        body: new URLSearchParams(new FormData(form))
     })
     .then(r => r.json())
     .then(d => resultado_consulta.innerHTML = d.tabela)

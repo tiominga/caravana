@@ -149,8 +149,8 @@ def viagem_sql_find(request):
             SELECT 
             id,
             Origem,
-            date_format(data,'%%d/%%m/%%Y') as Partida,
             Destino,
+            date_format(data,'%%d/%%m/%%Y') as Partida,           
             preco as Preço,
             descricao as Descrição,
             Obs
@@ -167,7 +167,7 @@ def viagem_sql_find(request):
                     order by data,hora_partida
                 """   
         params = [origem,destino]
-        print(query+" "+origem+" "+destino)
+        
                  
     else:
 
@@ -177,9 +177,7 @@ def viagem_sql_find(request):
                     order by data,hora_partida
                 """   
         params = [origem,destino,data]
-        print(query+" "+origem+" "+destino+" "+data)
-       
-    
+        
     obj_sqltotable = SqlToTable()
     obj_sqltotable.set_query(query)
     obj_sqltotable.set_params(params)
