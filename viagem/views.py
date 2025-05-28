@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Viagem
+from poltrona.views import poltrona_add_all
 from caravana.utils.sql_to_table import SqlToTable
 from django.shortcuts import render, redirect
 from django.db import connection
@@ -55,10 +56,12 @@ def viagem_save(request):
 
     if request.method == 'POST':
         id = request.POST.get('id')
+        add = 0
         if id.isdigit():
             obj_viagem = get_object_or_404(Viagem, pk=id)
         else:
             obj_viagem = Viagem()
+            add = 1
 
        # Preenche os campos
         obj_viagem.nome = request.POST.get('nome')
@@ -78,8 +81,13 @@ def viagem_save(request):
         obj_viagem.cod_usuario_id = cod_usuario
 
         obj_viagem.save()
+        id_viagem = obj_viagem.id
 
-        return redirect('viagem:list_all')  # redireciona pra alguma lista de viagens, por exemplo
+        if (add == 1):
+            poltrona_add_all(request,id_viagem)
+
+
+    return redirect('viagem:list_all')  # redireciona pra alguma lista de viagens, por exemplo
 
 
 def viagem_find(request):
@@ -181,16 +189,9 @@ def viagem_sql_find(request):
     obj_sqltotable = SqlToTable()
     obj_sqltotable.set_query(query)
     obj_sqltotable.set_params(params)
+    obj_sqltotable.set_edit_rout('poltrona:list_all')
     obj_sqltotable.execute_query()
 
     result = obj_sqltotable.query_to_html()
 
-    
-
     return JsonResponse({"tabela": result})
-
-
-
-    
-
-

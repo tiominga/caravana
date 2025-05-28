@@ -70,7 +70,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'home',
     'viagem',
-    'passageiro'
+    'passageiro',
+    'poltrona'
 
 ]
 
