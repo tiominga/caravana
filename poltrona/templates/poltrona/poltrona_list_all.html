@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+
+
+{% block 'head' %}
+  {% load static  %}
+  <link rel="stylesheet" href="{% static 'poltrona/css/poltrona_list_all.css' %}">
+  <script src="{% static 'poltrona/js/poltrona_list_all.js' %}"></script>
+{% endblock %}
+
+{% block 'title' %}Lista de Poltronas{% endblock %}
+
+{% block 'body' %}
+
+<div class="d-flex justify-content-center my-3"><h2>Selecione sua poltrona:</h2></div>
+
+<form method="post" id="form_poltrona" action="{% url 'poltrona:poltrona_selecionou' %}">
+{% csrf_token %}
+  <div class="grid-poltronas">  
+      
+          {% for poltrona in poltronas %}
+        <div class="poltrona {% if poltrona.status == 2 %}ocupada{% endif %}">
+          <div class="poltrona-icon">💺</div> <!-- ícone de cadeira -->    
+          <div class="poltrona-nome">
+            {%if poltrona.status == 1 %}
+              <input type="checkbox" class="form-check-input cb_poltrona" value="{{poltrona.id}}" name="cb_poltrona" id="{{poltrona.id}}">
+            {% endif %}&nbsp{{ poltrona.nome }}</div>     
+        </div>
+
+        {% if forloop.counter|divisibleby:"2" and not forloop.counter|divisibleby:"4"  %} 
+            <div> </div>       
+        {% endif %} 
+
+      {% endfor %}
+
+  </div>
+</form>
+<br>
+<div class="d-flex justify-content-center my-3">
+  <button type="button" class="btn btn-primary" id="confirmarPoltrona" onclick="alredy_selected()">Confirmar Poltrona</button>
+</div>  
+
+{% endblock %}

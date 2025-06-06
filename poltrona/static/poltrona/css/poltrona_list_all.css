@@ -1,0 +1,39 @@
+  .grid-poltronas {
+    display: grid;
+    grid-template-columns: 80px 80px 50px 80px 80px;    
+    gap: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+  }
+
+  .poltrona {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: 0.2s ease;
+  }
+
+  .poltrona:hover {
+    background-color: #e0f7fa;
+    border-color: #00acc1;
+  }
+
+  .poltrona-icon {
+    font-size: 32px;
+  }
+
+  .poltrona-nome {
+    margin-top: 5px;
+    font-weight: bold;
+  }
+
+  .ocupada {
+    background-color: #ffcdd2;
+    cursor: not-allowed;
+    border-color: #e57373;
+  }

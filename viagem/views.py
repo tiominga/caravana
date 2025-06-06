@@ -158,7 +158,7 @@ def viagem_sql_find(request):
             id,
             Origem,
             Destino,
-            date_format(data,'%%d/%%m/%%Y') as Partida,           
+            concat(date_format(data,'%%d/%%m/%%Y'),' ',date_format(hora_partida,'%%h:%%m')) as Partida,           
             preco as Preço,
             descricao as Descrição,
             Obs
@@ -193,5 +193,7 @@ def viagem_sql_find(request):
     obj_sqltotable.execute_query()
 
     result = obj_sqltotable.query_to_html()
+
+    result = result.replace('Alterar','✅Selecionar')
 
     return JsonResponse({"tabela": result})

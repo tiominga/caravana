@@ -21,6 +21,7 @@ app_name = 'poltrona'
 
 urlpatterns = [
      
-       path('list_all<int:id>',views.poltrona_list_all,name='list_all')
+       path('list_all/<int:id>',views.poltrona_list_all,name='list_all'),
+       path('poltrona_selecionou/', views.poltrona_selecionou, name='poltrona_selecionou'),
 
 ]
