@@ -10,6 +10,15 @@ function alredy_selected(){
         .then(res => res.json())
         .then(data => {           
             liveToast(data.bg, data.message);
+            if (data.redirect != 'None'){
+
+                setTimeout(function() {
+                window.location.href = data.redirect;
+                }, 2000);
+
+            } 
+
+           
     });
 
 }   

@@ -3,10 +3,15 @@ from django.db import connection
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import Poltrona
+from pedido.models import Pedido
 from viagem.models import Viagem
 from django.shortcuts import render
 import logging
 import json
+import uuid
+from django.contrib.auth.decorators import login_required
+
+@login_required
 
 
 # Create your views here.
@@ -61,23 +66,41 @@ def poltrona_list_all(request,id):
           return JsonResponse({'return': 'error', 'message': 'Invalid ID.'}) 
     
 
+def poltrona_pedido(id_poltrona,grupo):
+    if str(id_poltrona).isdigit():
+        obj_pedido = Pedido()      
+        obj_pedido.cod_poltrona_id = id_poltrona
+        obj_pedido.id_pagamento = 'Aberto'
+        obj_pedido.forma_pagamento = 'Aberto'
+        obj_pedido.grupo = grupo
+        obj_pedido.status = 1
+        obj_pedido.save()
+
+        return JsonResponse({'return': 'success', 'message': 'Pedido created successfully.'})
+    else:
+        return JsonResponse({'return': 'error', 'message': 'Invalid Poltrona ID.'})    
+    
+
 def poltrona_selecionou(request):    
      if request.method == 'POST':
         selecionadas = tuple(request.POST.getlist('cb_poltrona'))
         quantidade = len(selecionadas)
-        selecionadas_in = str(selecionadas).replace(",)", ")")        
+        selecionadas_in = str(selecionadas).replace(",)", ")") 
+
+        cod_usuario = request.user.id       
         
         if quantidade > 0:
-               query = f"UPDATE poltrona_poltrona SET status = 3 WHERE id IN {selecionadas_in}"
+               query = f"UPDATE poltrona_poltrona SET status = 3,cod_usuario_id = {cod_usuario} WHERE id IN {selecionadas_in}"              
                try:
                     with connection.cursor() as cursor:          
                          cursor.execute(query)
+                         grupo = uuid.uuid4().hex[:12]
+                         for selecionadas in selecionadas:
+                              poltrona_pedido(selecionadas,grupo)
                except Exception as e:
                     logging.error(f"Error updating poltrona status: {e}")
-                    return JsonResponse({'return': 'error', 'bg':'bg-danger' , 'message': 'Failed to update poltrona status.'})     
+                    return JsonResponse({'return': 'error', 'bg':'bg-danger' , 'message': 'Falha, parece que você precisa se logar novamente...','redirect':'None'})     
         else:
-               return JsonResponse({'return': 'error', 'bg':'bg-warning' , 'message': 'Selecione ao menos uma poltrona.'}) 
-         
-        return JsonResponse({'return': 'success', 'bg':'bg-success' ,'message': 'Reserva realizada com sucesso.'})
-
-         
+               return JsonResponse({'return': 'error', 'bg':'bg-warning' , 'message': 'Selecione ao menos uma poltrona.','redirect':'None'}) 
+        
+        return JsonResponse({'return': 'success', 'bg':'bg-success' ,'message': 'Reserva realizada com sucesso. Aguarde...','redirect':'/passageiro/form/'})        

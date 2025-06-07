@@ -2,11 +2,9 @@ function getCsrfToken() {
         return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     }
 
-    function save_passageiro(){  
-    alert('save_passageiro');     
+    function save_passageiro(){     
     let formData = new FormData(document.getElementById('form_passageiro'));
-    fetch('/passageiro/save/', {
-    
+    fetch('/passageiro/save/', {    
      method: 'POST',
         headers: {
             'X-CSRFToken': getCsrfToken(),
@@ -16,8 +14,7 @@ function getCsrfToken() {
     .then(response => response.json())
     .then(data => {
         if (data.return === 'success') {
-            liveToast('bg-success', data.message || 'Saved successfully.');
-            connection_list();
+            liveToast('bg-success', data.message || 'Saved successfully.');           
         } else if (data.error) {
             liveToast('bg-danger', data.error);
         } else {
@@ -44,8 +41,7 @@ function getCsrfToken() {
             .then(response => response.json())
             .then(data => {
                 if (data.return === 'success') {
-                    liveToast('bg-success', 'Deleted successfully.');
-                    connection_list();
+                    liveToast('bg-success', 'Deleted successfully.');                    
                 } else if (data.error) {
                     liveToast('bg-danger', data.error);
                 } else {

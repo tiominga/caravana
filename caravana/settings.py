@@ -71,7 +71,8 @@ INSTALLED_APPS = [
     'home',
     'viagem',
     'passageiro',
-    'poltrona'
+    'poltrona',
+    'pedido',
 
 ]
 
