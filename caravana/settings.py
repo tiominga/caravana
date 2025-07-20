@@ -51,18 +51,12 @@ AUTHENTICATION_BACKENDS = [
 # Application definition
 
 INSTALLED_APPS = [
-
-     # The following apps are required:
     'django.contrib.auth',
     'django.contrib.messages',
-    'allauth_themes.bootstrap',
-
+    'allauth_themes',  # só isso
     'allauth',
     'allauth.account',
-
-    # Optional -- requires install using `django-allauth[socialaccount]`.
     'allauth.socialaccount',
-
     'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -73,7 +67,6 @@ INSTALLED_APPS = [
     'passageiro',
     'poltrona',
     'pedido',
-
 ]
 
 MIDDLEWARE = [
