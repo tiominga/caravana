@@ -10,9 +10,11 @@ django-allauth==0.58.2
 django-allauth-themes==0.1.2
 django-extensions==4.1
 filelock==3.13.1
+gunicorn==23.0.0
 idna==3.6
 mysqlclient==2.2.7
 oauthlib==3.2.2
+packaging==25.0
 platformdirs==4.0.0
 pycparser==2.21
 PyJWT==2.8.0
